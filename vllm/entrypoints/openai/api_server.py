@@ -150,7 +150,6 @@ if __name__ == "__main__":
     )
 
     if token := envs.VLLM_API_KEY or args.api_key:
-
         @app.middleware("http")
         async def authentication(request: Request, call_next):
             root_path = "" if args.root_path is None else args.root_path

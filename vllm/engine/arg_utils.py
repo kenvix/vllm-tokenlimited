@@ -49,6 +49,7 @@ class EngineArgs:
     max_num_batched_tokens: Optional[int] = None
     max_num_seqs: int = 256
     max_logprobs: int = 20  # Default value for OpenAI Chat Completions API
+    max_tokens: int = 0 
     disable_log_stats: bool = False
     revision: Optional[str] = None
     code_revision: Optional[str] = None
@@ -380,6 +381,12 @@ class EngineArgs:
             default=EngineArgs.max_logprobs,
             help=('Max number of log probs to return logprobs is specified in'
                   ' SamplingParams.'))
+        parser.add_argument('--max-tokens',
+                            type=int,
+                            default=0,
+                            help='Maximum number of tokens allowed. If the'
+                            'max_tokens requested by the user is greater than '
+                            'this value, it will be replaced by this value.')
         parser.add_argument('--disable-log-stats',
                             action='store_true',
                             help='Disable logging statistics.')
@@ -638,6 +645,7 @@ class EngineArgs:
             max_context_len_to_capture=self.max_context_len_to_capture,
             max_seq_len_to_capture=self.max_seq_len_to_capture,
             max_logprobs=self.max_logprobs,
+            max_tokens=self.max_tokens,
             disable_sliding_window=self.disable_sliding_window,
             skip_tokenizer_init=self.skip_tokenizer_init,
             served_model_name=self.served_model_name)

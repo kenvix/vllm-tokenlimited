@@ -46,6 +46,7 @@ class OpenAIServing:
             truncation_side="left")
 
         self.served_model_names = served_model_names
+        self.max_tokens = model_config.max_tokens or model_config.max_model_len
 
         if lora_modules is None:
             self.lora_requests = []

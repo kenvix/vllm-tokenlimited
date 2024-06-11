@@ -217,6 +217,8 @@ class OpenAIServingCompletion(OpenAIServing):
                     # text O(n^2) sending.
 
                     assert request.max_tokens is not None
+                    request.max_tokens = min(request.max_tokens, self.max_tokens)
+                    
                     if request.echo and request.max_tokens == 0:
                         # only return the prompt
                         delta_text = res.prompt
